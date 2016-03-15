@@ -1,0 +1,37 @@
+<%= form_for [@menu_item, @location, @price] do |f| %>
+  <% if @price.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@price.errors.count, "error") %> prohibited this price from being saved:</h2>
+
+      <ul>
+      <% @price.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :value %>
+  </div>
+  <div class="field">
+    <%= f.label :menu_item_id %><br>
+    <%= @menu_item.name %>
+  </div>
+  <div class="field">
+    <%= f.label :location_id %><br>
+    <%= @location.name %>
+  </div>
+  <div class="field">
+    <%= f.label :order_type_id %><br>
+    <%= collection_select(:price, :order_type_id, @menu_item.brand.order_types, :id, :name, :prompt => "Select the type of Order", :class => 'form-control') %>
+  </div>
+  <div class="field">
+    <%= f.label :day_part_id %><br>
+    <%= collection_select(:price, :day_part_id, @location.day_parts, :id, :name, :prompt => "Select a Day Part", :class => 'form-control') %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

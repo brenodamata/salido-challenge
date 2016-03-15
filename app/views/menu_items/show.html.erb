@@ -1,0 +1,53 @@
+<%- model_class = MenuItem -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:brand_id) %>:</strong></dt>
+  <dd><%= @menu_item.brand.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @menu_item.name %></dd>
+</dl>
+
+<%= link_to 'New Price', menu_item_brand_locations_path(@menu_item), :class => 'btn btn-success'  %>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              menu_items_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_menu_item_path(@menu_item), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              menu_item_path(@menu_item),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:location) %></th>
+      <th><%= model_class.human_attribute_name(:day_part) %></th>
+      <th><%= model_class.human_attribute_name(:order_type) %></th>
+      <th><%= model_class.human_attribute_name(:price) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @menu_item.prices.each do |price| %>
+      <tr>
+        <td><%= price.location.name %></td>
+        <td><%= price.day_part ? price.day_part.name : "-" %></td>
+        <td><%= price.order_type.name %></td>
+        <td><%= price.value %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_menu_item_location_price_path(@menu_item, price.location, price), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      menu_item_location_price_path(@menu_item, price.location, price),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
