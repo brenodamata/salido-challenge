@@ -41,3 +41,18 @@ jQuery ->
       $('#price_day_part_id').html(day_part_options)
     else
       $('#price_day_part_id').empty()
+
+  $(".submit_search").click ->
+    if validateForm() == false
+      return false
+
+  $(document).on "ajax:success", "form", (xhr, data, response) ->
+    console.log(data)
+    if data.status
+      data.status
+
+
+  validateForm = ->
+    if $("#price_brand_id").val() == '' || $("#price_location_id").val() == '' || $("#price_order_type_id").val() == '' || $("#price_menu_item_id").val() == ''
+      alert('Please select all required options')
+      return false

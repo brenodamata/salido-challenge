@@ -18,6 +18,6 @@
   <p><%= f.label :menu_item_id %>
   <%= f.grouped_collection_select(:menu_item_id, Brand.all, :menu_items, :name, :id, :name, :prompt => "Select an Item", :class => 'form-control') %></p>
 
-  <%= f.submit 'Search' %>
+  <%= f.submit 'Search', class: "submit_search" %>
 <% end %>
 

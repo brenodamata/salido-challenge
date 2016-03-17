@@ -4,13 +4,29 @@ class PricesController < ApplicationController
   # before_action :set_menu_item_location, except: [:search, :results, :index, :lookup]
 
   def search
-    puts params
-    @location = Location.find(params[:price][:location_id])
-    @order_type = OrderType.find(params[:price][:order_type_id])
-    @day_part = DayPart.find(params[:price][:day_part_id]) unless params[:price][:day_part_id].empty?
-    @item = MenuItem.find(params[:price][:menu_item_id])
-    @prices = @item.prices.where(location_id: @location.id.to_s, order_type_id: @order_type.id.to_s)
-    # @prices = Price.find(:all, :conditions => ["name LIKE %?%",location])
+    if params[:price][:location_id].empty? or params[:price][:order_type_id].empty? or params[:price][:menu_item_id].empty?
+# debugger
+      respond_to do |format|
+        format.html { render :lookup, notice: 'error' }
+        format.json { render json: { :error => @prices.errors } }
+      end
+    else
+      @location = Location.find(params[:price][:location_id])
+      @order_type = OrderType.find(params[:price][:order_type_id])
+      @day_part = DayPart.find(params[:price][:day_part_id]) unless params[:price][:day_part_id].empty?
+      @item = MenuItem.find(params[:price][:menu_item_id])
+      @prices = @item.prices.where(location_id: @location.id.to_s, order_type_id: @order_type.id.to_s)
+    end
+
+    # respond_to do |format|
+    #   if @price.save
+    #     format.html { redirect_to  menu_item_path(@menu_item), notice: 'Price was successfully created.' }
+    #     format.json { render :show, status: :created, location: @price }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @price.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   def results
