@@ -16,4 +16,5 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require prices
+//= require locations
 //= require_self
