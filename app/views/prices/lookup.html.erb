@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Price Lookup</h1>
+
+<%= form_for Price.new, :url => "search" do |f| %>
+  <p><%= f.label :brand_id %>
+  <%= collection_select(:price, :brand_id, Brand.all, :id, :name, :prompt => "Select the Brand", :class => 'form-control') %></p>
+
+  <p><%= f.label :location_id %>
+  <%= f.grouped_collection_select(:location_id, Brand.all, :locations, :name, :id, :name, :prompt => "Select the Location", :class => 'form-control') %></p>
+
+  <p><%= f.label :day_part_id %>
+  <%= f.grouped_collection_select(:day_part_id, Location.all, :day_parts, :name, :id, :name, :prompt => "Select the Day Part", :class => 'form-control') %></p>
+
+  <p><%= f.label :order_type_id %>
+  <%= f.grouped_collection_select(:order_type_id, Brand.all, :order_types, :name, :id, :name, :prompt => "Select Order Type", :class => 'form-control') %></p>
+
+  <p><%= f.label :menu_item_id %>
+  <%= f.grouped_collection_select(:menu_item_id, Brand.all, :menu_items, :name, :id, :name, :prompt => "Select an Item", :class => 'form-control') %></p>
+
+  <%= f.submit 'Search' %>
+<% end %>
+
