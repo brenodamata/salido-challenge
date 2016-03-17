@@ -2,6 +2,20 @@ class PricesController < ApplicationController
   before_action :set_price, only: [:show, :edit, :update, :destroy]
   before_action :set_menu_item_location, only: [:new, :edit, :create, :show, :update]
 
+  def search
+    puts params
+    @location = Location.find(params[:price][:location_id])
+    @order_type = OrderType.find(params[:price][:order_type_id])
+    @day_part = DayPart.find(params[:price][:day_part_id]) unless params[:price][:day_part_id].empty?
+    @item = MenuItem.find(params[:price][:menu_item_id])
+    @prices = @item.prices.where(location_id: @location.id.to_s, order_type_id: @order_type.id.to_s)
+    # @prices = Price.find(:all, :conditions => ["name LIKE %?%",location])
+  end
+
+  def results
+
+  end
+
   def index
     @prices = Price.all
   end
@@ -65,6 +79,6 @@ class PricesController < ApplicationController
     end
 
     def price_params
-      params.require(:price).permit(:value, :menu_item_id, :location_id, :order_type_id, :day_part_id)
+      params.require(:price).permit(:value, :menu_item_id, :location_id, :order_type_id, :day_part_id, :price_level_id)
     end
 end

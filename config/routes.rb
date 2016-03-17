@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   resources :locations
   resources :brands
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'prices#index'
+  post '/search', to: 'prices#search'
+  get '/search', to: 'prices#results'
+  # root 'salidos#brands'
+  # get '/:brand_id/locations', to: 'salidos#locations', as: 'brand_locations' 
+  # get '/:location_id/order_types', to: 'salidos#order_types', as: 'location_order_types'
+  # get '/:location_id/:order_type_id/prices', to: 'salidos#prices', as: 'location_order_type_prices'
 end

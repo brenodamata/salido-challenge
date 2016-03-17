@@ -5,4 +5,7 @@ class OrderType
 
   belongs_to :brand
   has_many :prices
+  
+  validates_presence_of :name
+  validates_presence_of :brand_id
 end

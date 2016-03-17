@@ -4,6 +4,8 @@ class DayPart
   field :location_id, type: Integer
 
   belongs_to :location
-  has_many :price_levels
   has_many :prices
+
+  validates_presence_of :name
+  validates_presence_of :location_id
 end

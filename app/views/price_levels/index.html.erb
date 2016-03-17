@@ -15,7 +15,6 @@
       <tr>
         <td><%= link_to price_level.name, price_level_path(price_level) %></td>
         <td><%= link_to price_level.brand.name, brand_path(price_level.brand) %></td>
-        <td><%=l price_level.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_price_level_path(price_level), :class => 'btn btn-default btn-xs' %>

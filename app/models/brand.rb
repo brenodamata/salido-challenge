@@ -5,4 +5,6 @@ class Brand
   has_many :order_types
   has_many :price_levels
   has_many :menu_items
+
+  validates_presence_of :name
 end

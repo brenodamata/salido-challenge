@@ -8,6 +8,12 @@
   <dd><%= @brand.name %></dd>
 </dl>
 
+<% if @locations.size > 0 %>
+	<dt><strong>Locations:</strong></dt>
+
+	<%= render 'locations/list' %>
+<% end %>
+
 <%= link_to t('.back', :default => t("helpers.links.back")),
               brands_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),

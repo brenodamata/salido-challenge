@@ -10,6 +10,11 @@
   <dd><%= @location.brand.name %></dd>
 </dl>
 
+<% if @day_parts.size > 0 %>
+  <dt><strong>Day Parts:</strong></dt>
+  <%= render 'day_parts/list' %>
+<% end %>
+
 <%= link_to t('.back', :default => t("helpers.links.back")),
               locations_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),

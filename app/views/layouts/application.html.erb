@@ -45,12 +45,14 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Challenge</a>
+        <%= link_to 'Salido', root_path, class: "navbar-brand" %>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li><%= link_to "Brands", brands_path  %></li>
             <li><%= link_to "Locations", locations_path  %></li>
             <li><%= link_to "Menu Items", menu_items_path  %></li>
+            <li><%= link_to "Order Types", order_types_path  %></li>
+            <li><%= link_to "Price Level", price_levels_path  %></li>
           </ul>
         </div>
       </div>

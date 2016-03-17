@@ -1,0 +1,18 @@
+<div class="page-header">
+  <h1>Price Lookup</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= @brand.name %> - Locations:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @locations.each do |location| %>
+      <tr>
+        <td><%= link_to location.name, location_order_types_path(location) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

@@ -1,35 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Prices</h1>
+<h1>Price Lookup</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Price</th>
-      <th>Menu item</th>
-      <th>Location</th>
-      <th>Order type</th>
-      <th>Day part</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= form_for Price.new, :url => "search" do |f| %>
+  <p><%= f.label :brand_id %>
+  <%= collection_select(:price, :brand_id, Brand.all, :id, :name, :prompt => "Select the Brand", :class => 'form-control') %></p>
 
-  <tbody>
-    <% @prices.each do |price| %>
-      <tr>
-        <td><%= price.price %></td>
-        <td><%= price.menu_item_id %></td>
-        <td><%= price.location_id %></td>
-        <td><%= price.order_type_id %></td>
-        <td><%= price.day_part_id %></td>
-        <td><%= link_to 'Show', price %></td>
-        <td><%= link_to 'Edit', edit_price_path(price) %></td>
-        <td><%= link_to 'Destroy', price, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <p><%= f.label :location_id %>
+  <%= f.grouped_collection_select(:location_id, Brand.all, :locations, :name, :id, :name, :prompt => "Select the Location", :class => 'form-control') %></p>
 
-<br>
+  <p><%= f.label :day_part_id %>
+  <%= f.grouped_collection_select(:day_part_id, Location.all, :day_parts, :name, :id, :name, :prompt => "Select the Day Part", :class => 'form-control') %></p>
 
-<%= link_to 'New Price', new_price_path %>
+  <p><%= f.label :order_type_id %>
+  <%= f.grouped_collection_select(:order_type_id, Brand.all, :order_types, :name, :id, :name, :prompt => "Select Order Type", :class => 'form-control') %></p>
+
+  <p><%= f.label :menu_item_id %>
+  <%= f.grouped_collection_select(:menu_item_id, Brand.all, :menu_items, :name, :id, :name, :prompt => "Select an Item", :class => 'form-control') %></p>
+
+  <%= f.submit 'Search' %>
+<% end %>
+

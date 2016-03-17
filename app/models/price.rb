@@ -5,9 +5,15 @@ class Price
   field :location_id, type: Integer
   field :order_type_id, type: Integer
   field :day_part_id, type: Integer
+  field :price_level_id, type: Integer
 
   belongs_to :menu_item
   belongs_to :location
   belongs_to :order_type
   belongs_to :day_part
+  belongs_to :price_level
+
+  validates_presence_of :value
+  validates_presence_of :order_type_id
+  validates_presence_of :location_id
 end

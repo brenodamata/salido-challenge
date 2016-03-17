@@ -31,6 +31,10 @@
     <%= f.label :day_part_id %><br>
     <%= collection_select(:price, :day_part_id, @location.day_parts, :id, :name, :prompt => "Select a Day Part", :class => 'form-control') %>
   </div>
+  <div class="field">
+    <%= f.label :price_level_id %><br>
+    <%= collection_select(:price, :price_level_id, @location.brand.price_levels, :id, :name, :prompt => "Select a Price Level", :class => 'form-control') %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

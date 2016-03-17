@@ -7,7 +7,7 @@
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @price_level.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:brand_id) %>:</strong></dt>
-  <dd><%= @price_level.brand_id %></dd>
+  <dd><%= @price_level.brand.name %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

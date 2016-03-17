@@ -1,0 +1,23 @@
+<div class="page-header">
+  <h1>Price Lookup</h1>
+  <h3><%= "#{@location.brand.name} - #{@location.name}" %></h3>
+  <h4><%= "Item: #{@item.name}" %></h4>
+</div>
+
+<%= "Order type: #{@order_type.name}" %> <br/>
+<% unless @day_part.nil? %>
+  <%= "Day part: #{@day_part.name}" %> <br/>
+<% end %>
+<br />
+<h4>Prices:</h4>
+
+<% @prices.each do |price| %>
+  Price: <%= price.value %><br/>
+  <% if @day_part.nil? and !price.day_part.nil? %>
+    <%= "Day part: #{price.day_part.name}" if @day_part.nil? and !price.day_part.nil? %><br/>
+  <% end %>
+  <% unless price.price_level.nil? %>
+	 <%= "Price Level: #{price.price_level.name}" unless price.price_level.nil? %><br/>
+  <% end %>
+-----<br>
+<% end %>

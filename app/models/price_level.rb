@@ -2,10 +2,10 @@ class PriceLevel
   include Mongoid::Document
   field :name, type: String
   field :brand_id, type: Integer
-  field :location_id, type: Integer
-  field :day_part_id, type: Integer
 
   belongs_to :brand
-  belongs_to :location
-  belongs_to :day_part
+  has_many :prices
+
+  validates_presence_of :name
+  validates_presence_of :brand_id
 end
