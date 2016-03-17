@@ -1,6 +1,7 @@
 class PricesController < ApplicationController
   before_action :set_price, only: [:show, :edit, :update, :destroy]
   before_action :set_menu_item_location, only: [:new, :edit, :create, :show, :update]
+  before_action :set_menu_item_location, except: [:search, :results, :index]
 
   def search
     puts params
@@ -63,7 +64,7 @@ class PricesController < ApplicationController
   def destroy
     @price.destroy
     respond_to do |format|
-      format.html { redirect_to prices_url, notice: 'Price was successfully destroyed.' }
+      format.html { redirect_to menu_item_path(@menu_item), notice: 'Price was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -16,4 +16,7 @@ class Price
   validates_presence_of :value
   validates_presence_of :order_type_id
   validates_presence_of :location_id
+  validates_presence_of :price_level_id
+
+  validates :menu_item, :uniqueness => {:scope => [:location_id, :price_level_id, :order_type_id, :day_part_id]}
 end

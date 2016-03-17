@@ -15,6 +15,8 @@
   Price: <%= price.value %><br/>
   <% if @day_part.nil? and !price.day_part.nil? %>
     <%= "Day part: #{price.day_part.name}" if @day_part.nil? and !price.day_part.nil? %><br/>
+  <% else %>
+    No day part.<br />
   <% end %>
   <% unless price.price_level.nil? %>
 	 <%= "Price Level: #{price.price_level.name}" unless price.price_level.nil? %><br/>
