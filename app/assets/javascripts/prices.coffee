@@ -32,3 +32,12 @@ jQuery ->
       $('#price_menu_item_id').html(menu_item_options)
     else
       $('#price_menu_item_id').empty()
+
+  day_parts = $('#price_day_part_id').html()
+  $('#price_location_id').change ->
+    location = $('#price_location_id :selected').text()
+    day_part_options = $(day_parts).filter("optgroup[label=\"#{location}\"]").html()
+    if day_part_options
+      $('#price_day_part_id').html(day_part_options)
+    else
+      $('#price_day_part_id').empty()

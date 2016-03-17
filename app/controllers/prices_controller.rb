@@ -1,7 +1,7 @@
 class PricesController < ApplicationController
   before_action :set_price, only: [:show, :edit, :update, :destroy]
-  before_action :set_menu_item_location, only: [:new, :edit, :create, :show, :update]
-  before_action :set_menu_item_location, except: [:search, :results, :index]
+  before_action :set_menu_item, only: [:show, :edit, :update, :destroy, :create]
+  # before_action :set_menu_item_location, except: [:search, :results, :index, :lookup]
 
   def search
     puts params
@@ -17,6 +17,10 @@ class PricesController < ApplicationController
 
   end
 
+  def lookup
+
+  end
+
   def index
     @prices = Price.all
   end
@@ -27,7 +31,8 @@ class PricesController < ApplicationController
   def new
     @price = Price.new
     @menu_item = MenuItem.find(params[:menu_item_id])
-    @location = Location.find(params[:location_id])
+    # @location = Location.find(params[:location_id])
+
   end
 
   def edit
@@ -36,7 +41,6 @@ class PricesController < ApplicationController
   def create
     @price = Price.new(price_params)
     @price.menu_item = @menu_item
-    @price.location = @location
 
     respond_to do |format|
       if @price.save
@@ -74,9 +78,8 @@ class PricesController < ApplicationController
       @price = Price.find(params[:id])
     end
 
-    def set_menu_item_location
+    def set_menu_item
       @menu_item = MenuItem.find(params[:menu_item_id])
-      @location = Location.find(params[:location_id])
     end
 
     def price_params

@@ -1,4 +1,4 @@
-<%= form_for [@menu_item, @location, @price] do |f| %>
+<%= form_for [@menu_item, @price] do |f| %>
   <% if @price.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@price.errors.count, "error") %> prohibited this price from being saved:</h2>
@@ -21,19 +21,19 @@
   </div>
   <div class="field">
     <%= f.label :location_id %><br>
-    <%= @location.name %>
+    <%= collection_select(:price, :location_id, @menu_item.brand.locations, :id, :name, :prompt => "Select the Location", :class => 'form-control') %>
+  </div>
+  <div class="field">
+    <%= f.label :day_part_id %><br>
+    <%= f.grouped_collection_select(:day_part_id, @menu_item.brand.locations, :day_parts, :name, :id, :name, :prompt => "Select the Day Part", :class => 'form-control') %>
   </div>
   <div class="field">
     <%= f.label :order_type_id %><br>
     <%= collection_select(:price, :order_type_id, @menu_item.brand.order_types, :id, :name, :prompt => "Select the type of Order", :class => 'form-control') %>
   </div>
   <div class="field">
-    <%= f.label :day_part_id %><br>
-    <%= collection_select(:price, :day_part_id, @location.day_parts, :id, :name, :prompt => "Select a Day Part", :class => 'form-control') %>
-  </div>
-  <div class="field">
     <%= f.label :price_level_id %><br>
-    <%= collection_select(:price, :price_level_id, @location.brand.price_levels, :id, :name, :prompt => "Select a Price Level", :class => 'form-control') %>
+    <%= collection_select(:price, :price_level_id, @menu_item.brand.price_levels, :id, :name, :prompt => "Select a Price Level", :class => 'form-control') %>
   </div>
   <div class="actions">
     <%= f.submit %>
