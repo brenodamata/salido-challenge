@@ -32,9 +32,9 @@
         <td><%= price.value %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_menu_item_price_path(@menu_item, price.location, price), :class => 'btn btn-default btn-xs' %>
+                      edit_menu_item_price_path(@menu_item, price), :class => 'btn btn-default btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      menu_item_price_path(@menu_item, price.location, price),
+                      menu_item_price_path(@menu_item, price),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>

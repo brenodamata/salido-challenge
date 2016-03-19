@@ -1,11 +1,9 @@
 class PricesController < ApplicationController
   before_action :set_price, only: [:show, :edit, :update, :destroy]
   before_action :set_menu_item, only: [:show, :edit, :update, :destroy, :create]
-  # before_action :set_menu_item_location, except: [:search, :results, :index, :lookup]
 
   def search
     if params[:price][:location_id].empty? or params[:price][:order_type_id].empty? or params[:price][:menu_item_id].empty?
-# debugger
       respond_to do |format|
         format.html { render :lookup, notice: 'error' }
         format.json { render json: { :error => @prices.errors } }
@@ -47,19 +45,24 @@ class PricesController < ApplicationController
   def new
     @price = Price.new
     @menu_item = MenuItem.find(params[:menu_item_id])
-    # @location = Location.find(params[:location_id])
-
+    @price_levels = @menu_item.brand.price_levels
   end
 
   def edit
   end
 
   def create
-    @price = Price.new(price_params)
-    @price.menu_item = @menu_item
+    prices = params[:price][:value]
+# byebug
+    new_prices = []
+    prices.each_with_index do |price, i|
+      params[:price][:value] = price
+      params[:price][:price_level_id] = @menu_item.brand.price_levels[i].id.to_s
+      new_prices << @menu_item.prices.new(price_params)
+    end
 
     respond_to do |format|
-      if @price.save
+      if Price.create(new_prices)
         format.html { redirect_to  menu_item_path(@menu_item), notice: 'Price was successfully created.' }
         format.json { render :show, status: :created, location: @price }
       else

@@ -16,7 +16,20 @@ class Price
   validates_presence_of :value
   validates_presence_of :order_type_id
   validates_presence_of :location_id
-  validates_presence_of :price_level_id
+  # validates_presence_of :price_level_id
 
-  validates :menu_item, :uniqueness => {:scope => [:location_id, :price_level_id, :order_type_id, :day_part_id]}
+  validates :menu_item, :uniqueness => {:scope => [:location_id, :order_type_id, :day_part_id]}
+
+  def self.create_new_prices (prices, params, menu_item)
+    prices_save = []
+    byebug
+    prices.each do |price|
+      new_price = Price.new(params)
+      new_price.value = price
+      new_price.menu_item = menu_item
+      prices_save << new_price
+    end
+    prices_save
+  end
+
 end
