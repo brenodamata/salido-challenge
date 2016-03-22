@@ -1,25 +1,24 @@
 <div class="page-header">
   <h1>Price Lookup</h1>
-  <h3><%= "#{@location.brand.name} - #{@location.name}" %></h3>
+  <h3><%= "#{@item.brand.name}" %></h3>
   <h4><%= "Item: #{@item.name}" %></h4>
 </div>
 
-<%= "Order type: #{@order_type.name}" %> <br/>
+<% unless @order_type.nil? %>
+  <%= "Order type: #{@order_type.name}" %> <br/>
+<% end %>
 <% unless @day_part.nil? %>
   <%= "Day part: #{@day_part.name}" %> <br/>
 <% end %>
 <br />
+
 <h4>Prices:</h4>
 
+
 <% @prices.each do |price| %>
-  Price: <%= price.value %><br/>
-  <% if @day_part.nil? and !price.day_part.nil? %>
-    <%= "Day part: #{price.day_part.name}" if @day_part.nil? and !price.day_part.nil? %><br/>
+  <% if price.day_part.nil? %>
+    <%= "For #{price.price_level.name}: #{number_to_currency(price.value)}" %><br/>
   <% else %>
-    No day part.<br />
+	 <%= "For #{price.price_level.name} (during #{price.day_part.name} at #{price.day_part.location.name}): #{number_to_currency(price.value)}" %><br/>
   <% end %>
-  <% unless price.price_level.nil? %>
-	 <%= "Price Level: #{price.price_level.name}" unless price.price_level.nil? %><br/>
-  <% end %>
------<br>
 <% end %>

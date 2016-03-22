@@ -5,28 +5,53 @@ class PricesController < ApplicationController
   before_action :set_menu_item, only: [:show, :edit, :update, :destroy, :create]
 
   def search
-    if params[:price][:location_id].empty? or params[:price][:order_type_id].empty? or params[:price][:menu_item_id].empty?
+
+    unless params[:price][:menu_item_id].empty?
+      @item = MenuItem.find(params[:price][:menu_item_id])
+
+      if params[:price][:location_id].empty?
+        @locations = @item.brand.locations
+        loc = false
+      else
+        @location = Location.find(params[:price][:location_id])
+        loc = true
+        if params[:price][:day_part_id].empty?
+          @day_parts = @location.day_parts
+          day_p = false
+        else
+          @day_part = DayPart.find(params[:price][:day_part_id])
+          day_p = true
+        end
+      end
+
+      if params[:price][:order_type_id].empty?
+        @order_types = @item.brand.order_types
+        ot = false
+      else
+        @order_type = OrderType.find(params[:price][:order_type_id])
+        ot = true
+      end
+
+      if loc and day_p and ot
+        @prices = @item.prices.where(location_id: @location.id.to_s, day_part_id: @day_part.id.to_s, order_type_id: @order_type.id.to_s)
+      elsif loc and day_p and !ot
+        @prices = @item.prices.where(location_id: @location.id.to_s, day_part_id: @day_part.id.to_s)
+      elsif loc and !day_p and !ot
+        @prices = @item.prices.where(location_id: @location.id.to_s)
+      elsif loc and !day_p and ot
+        @prices = @item.prices.where(location_id: @location.id.to_s, order_type_id: @order_type.id.to_s)
+      elsif !loc and ot
+        @prices = @item.prices.where(order_type_id: @order_type.id.to_s)
+      else
+        @prices = @item.prices
+      end
+
+    else
       respond_to do |format|
-        format.html { render :lookup, notice: 'error' }
+        format.html { render :search, flash: { error: "error message" }}
         format.json { render json: { :error => @prices.errors } }
       end
-    else
-      @location = Location.find(params[:price][:location_id])
-      @order_type = OrderType.find(params[:price][:order_type_id])
-      @day_part = DayPart.find(params[:price][:day_part_id]) unless params[:price][:day_part_id].empty?
-      @item = MenuItem.find(params[:price][:menu_item_id])
-      @prices = @item.prices.where(location_id: @location.id.to_s, order_type_id: @order_type.id.to_s)
     end
-
-    # respond_to do |format|
-    #   if @price.save
-    #     format.html { redirect_to  menu_item_path(@menu_item), notice: 'Price was successfully created.' }
-    #     format.json { render :show, status: :created, location: @price }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @price.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   def results

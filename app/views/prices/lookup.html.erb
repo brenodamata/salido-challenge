@@ -6,6 +6,10 @@
   <p><%= f.label :brand_id %>
   <%= collection_select(:price, :brand_id, Brand.all, :id, :name, :prompt => "Select the Brand", :class => 'form-control') %></p>
 
+  <p><%= f.label :menu_item_id %>
+  <%= f.grouped_collection_select(:menu_item_id, Brand.all, :menu_items, :name, :id, :name, :prompt => "Select an Item", :class => 'form-control') %></p>
+
+Optional: <br />
   <p><%= f.label :location_id %>
   <%= f.grouped_collection_select(:location_id, Brand.all, :locations, :name, :id, :name, :prompt => "Select the Location", :class => 'form-control') %></p>
 
@@ -14,9 +18,6 @@
 
   <p><%= f.label :order_type_id %>
   <%= f.grouped_collection_select(:order_type_id, Brand.all, :order_types, :name, :id, :name, :prompt => "Select Order Type", :class => 'form-control') %></p>
-
-  <p><%= f.label :menu_item_id %>
-  <%= f.grouped_collection_select(:menu_item_id, Brand.all, :menu_items, :name, :id, :name, :prompt => "Select an Item", :class => 'form-control') %></p>
 
   <%= f.submit 'Search', class: "submit_search" %>
 <% end %>

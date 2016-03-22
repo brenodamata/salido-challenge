@@ -53,6 +53,6 @@ jQuery ->
 
 
   validateForm = ->
-    if $("#price_brand_id").val() == '' || $("#price_location_id").val() == '' || $("#price_order_type_id").val() == '' || $("#price_menu_item_id").val() == ''
-      alert('Please select all required options')
+    if $("#price_menu_item_id").val() == ''
+      alert('Please select a menu item')
       return false
