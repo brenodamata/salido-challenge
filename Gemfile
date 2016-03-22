@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby "2.2.1"
 
 gem "mongoid", git: 'git://github.com/mongoid/mongoid.git'
+gem 'mongo'
 gem "twitter-bootstrap-rails"
 gem "cocoon"
 

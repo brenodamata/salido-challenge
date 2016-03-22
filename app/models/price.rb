@@ -20,16 +20,13 @@ class Price
 
   validates :menu_item, :uniqueness => {:scope => [:location_id, :order_type_id, :day_part_id]}
 
-  def self.create_new_prices (prices, params, menu_item)
-    prices_save = []
-    byebug
-    prices.each do |price|
-      new_price = Price.new(params)
-      new_price.value = price
-      new_price.menu_item = menu_item
-      prices_save << new_price
-    end
-    prices_save
+  def self.validate_bulk(price, menu_item)
+    errors = []
+    errors << "Insert a price for every price level." if price[:value].size != menu_item.brand.price_levels.size
+    price[:value].each { |p| errors << "Type in a price." if p.empty? }
+    errors << "Please choose a location." if price[:location_id].empty?
+    errors << "Please choose an oder type" if price[:order_type_id].empty?
+    errors.empty? ? nil : errors
   end
 
 end

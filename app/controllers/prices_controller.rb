@@ -55,26 +55,27 @@ class PricesController < ApplicationController
 
   def create
     prices = params[:price][:value]
+    all_ok = true
 
     # validatios
-    params[:price][:value].size < @menu_item.brand.price_levels.size
-    params[:price][:location_id].empty?
-    params[:price][:order_type_id].empty?
+    if Price.validate_bulk(params[:price], @menu_item).nil?
 
-    new_prices = []
-    prices.each_with_index do |price, i|
-      params[:price][:value] = price
-      params[:price][:price_level_id] = @menu_item.brand.price_levels[i].id.to_s
-      new_prices << {insert_one: @menu_item.prices.new(price_params).attributes}
-    end
+      new_prices = []
+      prices.each_with_index do |price, i|
+        params[:price][:value] = price
+        params[:price][:price_level_id] = @menu_item.brand.price_levels[i].id.to_s
+        new_prices << {insert_one: @menu_item.prices.new(price_params).attributes}
+      end
 
-    respond_to do |format|
-      if Price.collection.bulk_write(new_prices)
+      Price.collection.bulk_write(new_prices)
+      respond_to do |format|
         format.html { redirect_to  menu_item_path(@menu_item), notice: 'Price was successfully created.' }
         format.json { render :show, status: :created, location: @price }
-      else
-        format.html { render :new }
+      end
+    else
+      respond_to do |format|
         format.json { render json: @price.errors, status: :unprocessable_entity }
+        format.html { redirect_to  new_menu_item_price_path(@menu_item), flash: { error: Price.validate_bulk(params[:price], @menu_item)[0] }}
       end
     end
   end
