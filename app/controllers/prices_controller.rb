@@ -1,3 +1,5 @@
+require 'mongo'
+
 class PricesController < ApplicationController
   before_action :set_price, only: [:show, :edit, :update, :destroy]
   before_action :set_menu_item, only: [:show, :edit, :update, :destroy, :create]
@@ -53,16 +55,21 @@ class PricesController < ApplicationController
 
   def create
     prices = params[:price][:value]
-# byebug
+
+    # validatios
+    params[:price][:value].size < @menu_item.brand.price_levels.size
+    params[:price][:location_id].empty?
+    params[:price][:order_type_id].empty?
+
     new_prices = []
     prices.each_with_index do |price, i|
       params[:price][:value] = price
       params[:price][:price_level_id] = @menu_item.brand.price_levels[i].id.to_s
-      new_prices << @menu_item.prices.new(price_params)
+      new_prices << {insert_one: @menu_item.prices.new(price_params).attributes}
     end
 
     respond_to do |format|
-      if Price.create(new_prices)
+      if Price.collection.bulk_write(new_prices)
         format.html { redirect_to  menu_item_path(@menu_item), notice: 'Price was successfully created.' }
         format.json { render :show, status: :created, location: @price }
       else
