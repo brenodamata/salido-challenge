@@ -55,7 +55,6 @@ class PricesController < ApplicationController
 
   def create
     prices = params[:price][:value]
-    all_ok = true
 
     # validatios
     if Price.validate_bulk(params[:price], @menu_item).nil?
