@@ -9,7 +9,7 @@
   <strong>Menu item:</strong>
   <%= @price.menu_item.name %>
 </p>
-
+<!-- 
 <p>
   <strong>Location:</strong>
   <%= @price.location.name %>
@@ -25,7 +25,7 @@
   <strong>Day part:</strong>
   <%= @price.day_part.name  %>
 </p>
-<% end %>
+<% end %> -->
 
 <%= link_to 'Edit', edit_menu_item_location_price_path(@menu_item, @location, @price) %> |
 <%= link_to 'Back', menu_item_locations_path(@menu_item) %>

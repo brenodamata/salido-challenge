@@ -12,25 +12,6 @@
   <% end %>
 
   <div class="field">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th><%= f.label :location_id %></th>
-          <th><%= f.label :day_part_id %></th>
-          <th><%= f.label :order_type_id %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= collection_select(:price, :location_id, @menu_item.brand.locations, :id, :name, :prompt => "Select the Location", :class => 'form-control') %></td>
-          <td><%= f.grouped_collection_select(:day_part_id, @menu_item.brand.locations, :day_parts, :name, :id, :name, :prompt => "Select the Day Part", :class => 'form-control') %></td>
-          <td><%= collection_select(:price, :order_type_id, @menu_item.brand.order_types, :id, :name, :prompt => "Select the type of Order", :class => 'form-control') %></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="field">
     <% f.hidden_field :menu_item_id, value: @menu_item %>
   </div>
 

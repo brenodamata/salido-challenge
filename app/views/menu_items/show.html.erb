@@ -14,9 +14,9 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:location) %></th>
-      <th><%= model_class.human_attribute_name(:day_part) %></th>
-      <th><%= model_class.human_attribute_name(:order_type) %></th>
+      <!-- <th><%#= model_class.human_attribute_name(:location) %></th> -->
+      <!-- <th><%#= model_class.human_attribute_name(:day_part) %></th> -->
+      <!-- <th><%#= model_class.human_attribute_name(:order_type) %></th> -->
       <th><%= model_class.human_attribute_name(:price_level) %></th>
       <th><%= model_class.human_attribute_name(:price) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -25,9 +25,9 @@
   <tbody>
     <% @menu_item.prices.each do |price| %>
       <tr>
-        <td><%= price.location.name %></td>
-        <td><%= price.day_part ? price.day_part.name : "-" %></td>
-        <td><%= price.order_type.name %></td>
+        <!-- <td><%#= price.location.name %></td> -->
+        <!-- <td><%#= price.day_part ? price.day_part.name : "-" %></td> -->
+        <!-- <td><%#= price.order_type.name %></td> -->
         <td><%= price.price_level ? price.price_level.name : "-" %></td>
         <td><%= price.value %></td>
         <td>

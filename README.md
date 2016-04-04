@@ -26,4 +26,4 @@ Select a brand for your new order type and give it a name.
 
 ### Price Levels
 Add, edit, update or delete brand price levels here.
-Select a brand for your new pricel leval and give it a name.
+Select a brand for your new price level and give it a name.
