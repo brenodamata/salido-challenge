@@ -19,6 +19,7 @@ class Price
   validates_presence_of :price_level_id
 
   # validates :menu_item, :uniqueness => {:scope => [:location_id, :order_type_id, :day_part_id]}
+  validates :menu_item, uniqueness: { scope: :price_level_id }
 
   def self.validate_bulk(price, menu_item)
     errors = []

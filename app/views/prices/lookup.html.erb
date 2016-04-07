@@ -2,7 +2,7 @@
 
 <h1>Price Lookup</h1>
 
-<%= form_for Price.new, :url => "search" do |f| %>
+<%= form_for Search.new, :url => "search" do |f| %>
   <p><%= f.label :brand_id %>
   <%= collection_select(:price, :brand_id, Brand.all, :id, :name, :prompt => "Select the Brand", :class => 'form-control') %></p>
 
@@ -21,4 +21,3 @@ Optional: <br />
 
   <%= f.submit 'Search', class: "submit_search" %>
 <% end %>
-
