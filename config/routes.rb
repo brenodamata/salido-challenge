@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :day_parts
 
   resources :locations do
-      get '/pla', to: "locations#price_levels_association"
+    resources :price_level_associations, except: :show
   end
 
   resources :brands

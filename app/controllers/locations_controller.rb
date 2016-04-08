@@ -58,11 +58,6 @@ class LocationsController < ApplicationController
     end
   end
 
-  def price_levels_association
-    @location = Location.find(params[:location_id])
-    @price_levels = @location.brand.price_levels
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_location
