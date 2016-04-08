@@ -9,5 +9,9 @@ class PriceLevelAssociation
   belongs_to :location
   belongs_to :order_type
   belongs_to :day_part
-# TODO: add validations so that there is an uniqueness with the scope of all models involved.
+
+  validates :location_id, uniqueness: { scope: [:price_level_id, :order_type_id, :day_part_id],
+                                        message: "This price level association already exists." }
+  validates :price_level_id, presence: true
+  validates :order_type_id, presence: true
 end

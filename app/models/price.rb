@@ -29,5 +29,5 @@ class Price
     # errors << "Please choose an oder type" if price[:order_type_id].empty?
     errors.empty? ? nil : errors
   end
-
+# TODO: validation for only one price for price levels
 end

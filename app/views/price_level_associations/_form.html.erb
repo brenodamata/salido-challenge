@@ -1,6 +1,4 @@
-<%# TODO: fix _form design %>
-
-<%= form_for([@location, @price_level_association]) do |f| %>
+<%= form_for [@location, @price_level_association] do |f| %>
   <% if @price_level_association.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@price_level_association.errors.count, "error") %> prohibited this price_level_association from being saved:</h2>
@@ -14,31 +12,31 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :price_level_id, class: 'control-label col-lg-2' %>
-    <div class="col-lg-10">
+    <%= f.label :price_level_id, class: 'control-label' %>
+    <div>
       <%= collection_select(:price_level_association, :price_level_id, @location.brand.price_levels, :id, :name, prompt: "Select a Price Level", class: 'form-control') %>
     </div>
     <%=f.error_span(:price_level_id) %>
   </div>
 
   <div class="form-group">
-    <%= f.label :order_type_id, class: 'control-label col-lg-2' %>
-    <div class="col-lg-10">
+    <%= f.label :order_type_id, class: 'control-label' %>
+    <div>
       <%= collection_select(:price_level_association, :order_type_id, @location.brand.order_types, :id, :name, prompt: "Select an Order Type", class: 'form-control') %>
     </div>
     <%=f.error_span(:order_type_id) %>
   </div>
 
   <div class="form-group">
-    <%= f.label :day_part_id, class: 'control-label col-lg-2' %>
-    <div class="col-lg-10">
+    <%= f.label :day_part_id, class: 'control-label' %>
+    <div>
       <%= collection_select(:price_level_association, :day_part_id, @location.day_parts, :id, :name, prompt: "Select a Day Part", class: 'form-control') %>
     </div>
     <%=f.error_span(:day_part_id) %>
   </div>
 
   <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
+    <div>
       <%= f.submit nil, class: 'btn btn-primary' %>
       <%= link_to t('.cancel', default: t("helpers.links.cancel")),
                 location_price_level_associations_path(@location), class: 'btn btn-default' %>
