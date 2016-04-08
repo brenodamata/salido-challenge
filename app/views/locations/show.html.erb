@@ -19,6 +19,9 @@
               locations_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_location_path(@location), :class => 'btn btn-default' %>
+<%= link_to 'Associate price levels',
+            location_pla_path(@location), 
+            class: "btn btn-success" %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               location_path(@location),
               :method => 'delete',

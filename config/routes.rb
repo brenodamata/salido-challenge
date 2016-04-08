@@ -4,10 +4,15 @@ Rails.application.routes.draw do
     resources :prices
     resources :locations
   end
+
   resources :price_levels
   resources :order_types
   resources :day_parts
-  resources :locations
+
+  resources :locations do
+      get '/pla', to: "locations#price_levels_association"
+  end
+
   resources :brands
 
   root 'prices#lookup'

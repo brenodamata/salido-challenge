@@ -5,12 +5,6 @@ class PricesController < ApplicationController
   before_action :set_menu_item, only: [:show, :edit, :update, :destroy, :create]
 
   def search
-# {"utf8"=>"✓", "authenticity_token"=>"sV/8QJTKSot2viI1N3wBTmkbA8/Jy/IV/==",
-#   "price"=>{"brand_id"=>"56e76bb6dd31752545000000"},
-#   "search"=>{"menu_item_id"=>"5702a9e9dd317509d5000007",
-#     "location_id"=>"56e7796fdd31752533000005",
-#     "day_part_id"=>"56e96ea9dd31753d7b000011",
-#     "order_type_id"=>""}, "commit"=>"Search"}
     unless params[:search][:menu_item_id].empty?
       @item = MenuItem.find(params[:search][:menu_item_id])
 
