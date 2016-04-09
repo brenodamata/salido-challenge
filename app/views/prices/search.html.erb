@@ -12,13 +12,6 @@
 <% end %>
 <br />
 
-<h4>Prices:</h4>
-
-
-<% @prices.each do |price| %>
-  <% if price.day_part.nil? %>
-    <%= "For #{price.price_level.name}: #{number_to_currency(price.value)}" %><br/>
-  <% else %>
-	 <%= "For #{price.price_level.name} (during #{price.day_part.name} at #{price.day_part.location.name}): #{number_to_currency(price.value)}" %><br/>
-  <% end %>
-<% end %>
+<h4>
+  <%= "Price: #{number_to_currency(@price.value)}" %><br/>
+</h4>

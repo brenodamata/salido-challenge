@@ -9,13 +9,11 @@ class PricesController < ApplicationController
       @item = MenuItem.find(params[:search][:menu_item_id])
 
       if params[:search][:location_id].empty?
-        @locations = @item.brand.locations
         loc = false
       else
         @location = Location.find(params[:search][:location_id])
         loc = true
         if params[:search][:day_part_id].empty?
-          @day_parts = @location.day_parts
           day_p = false
         else
           @day_part = DayPart.find(params[:search][:day_part_id])
@@ -24,26 +22,21 @@ class PricesController < ApplicationController
       end
 
       if params[:search][:order_type_id].empty?
-        @order_types = @item.brand.order_types
         ot = false
       else
         @order_type = OrderType.find(params[:search][:order_type_id])
         ot = true
       end
 
-      # if loc and day_p and ot
-      #   @prices = @item.prices.where(location_id: @location.id.to_s, day_part_id: @day_part.id.to_s, order_type_id: @order_type.id.to_s)
-      # elsif loc and day_p and !ot
-      #   @prices = @item.prices.where(location_id: @location.id.to_s, day_part_id: @day_part.id.to_s)
-      # elsif loc and !day_p and !ot
-      #   @prices = @item.prices.where(location_id: @location.id.to_s)
-      # elsif loc and !day_p and ot
-      #   @prices = @item.prices.where(location_id: @location.id.to_s, order_type_id: @order_type.id.to_s)
-      # elsif !loc and ot
-      #   @prices = @item.prices.where(order_type_id: @order_type.id.to_s)
-      # else
-      #   @prices = @item.prices
-      # end
+      if day_p
+        pla = @location.price_level_associations.where(day_part: @day_part, order_type: @order_type)
+        @price = pla.first.price_level.prices.first
+      end
+
+      if !day_p or @price.nil?
+        pla = @location.price_level_associations.where(order_type: @order_type)
+        @price = pla.first.price_level.prices.first
+      end
 
     else
       respond_to do |format|

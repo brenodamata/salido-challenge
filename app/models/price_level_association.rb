@@ -10,7 +10,7 @@ class PriceLevelAssociation
   belongs_to :order_type
   belongs_to :day_part
 
-  validates :location_id, uniqueness: { scope: [:price_level_id, :order_type_id, :day_part_id],
+  validates :location_id, uniqueness: { scope: [:order_type_id, :day_part_id],
                                         message: "This price level association already exists." }
   validates :price_level_id, presence: true
   validates :order_type_id, presence: true
