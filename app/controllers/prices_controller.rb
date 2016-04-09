@@ -5,7 +5,8 @@ class PricesController < ApplicationController
   before_action :set_menu_item, only: [:show, :edit, :update, :destroy, :create]
 
   def search
-    unless params[:search][:menu_item_id].empty?
+    if Search.validate(params[:search]).nil?
+    # unless params[:search][:menu_item_id].empty?
       @item = MenuItem.find(params[:search][:menu_item_id])
 
       if params[:search][:location_id].empty?
@@ -40,7 +41,8 @@ class PricesController < ApplicationController
 
     else
       respond_to do |format|
-        format.html { render :search, flash: { error: "error message" }}
+        format.html { render :lookup, flash: { error: Search.validate(params[:search])[0] }}
+        # format.html { render :search, flash: { error: "error message" }}
         format.json { render json: { :error => @prices.errors } }
       end
     end
